@@ -20,6 +20,8 @@ class ContactType extends AbstractType
                     'placeholder' => 'Votre nom',
                 ],
             ])
+            // A la place de null, on peut mettre EmailType::class mais on préfére laisser Symfony
+            // deviner...
             ->add('email', null, [
                 'help' => 'Nous ne partagerons pas votre email',
                 'attr' => [
