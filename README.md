@@ -13,3 +13,9 @@ Pour configurer la base de données, on n'oublie pas de créer un fichier `.env.
 ```bash
 DATABASE_URL=...
 ```
+
+Attention de bien créer la BDD :
+
+```bash
+php bin/console doctrine:database:create
+```
