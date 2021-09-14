@@ -16,10 +16,21 @@ class ContactType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Votre nom',
+                ],
             ])
-            ->add('email')
+            ->add('email', null, [
+                'help' => 'Nous ne partagerons pas votre email',
+                'attr' => [
+                    'placeholder' => 'Votre email',
+                ],
+            ])
             ->add('message', TextareaType::class)
-            ->add('country', CountryType::class)
+            ->add('country', CountryType::class, [
+                'label' => 'Pays',
+                'placeholder' => 'Choisir un pays',
+            ])
             // ->add('askedAt', null, [
             //     'years' => range(2021, 2030), // [2021, 2022, 2023..., 2030]
             // ])
