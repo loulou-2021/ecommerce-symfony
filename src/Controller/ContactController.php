@@ -20,6 +20,11 @@ class ContactController extends AbstractController
         $contact = new Contact();
         dump($contact);
 
+        // $now = new \DateTimeImmutable(); // L'objet ne peut pas être modifié
+        // $future = $now->modify('+30 days');
+        // dump($now->format('d-m-Y')); // 13/09/2021
+        // dump($future->format('d-m-Y')); // 14/10/2021
+
         // On crée un formulaire avec un Symfony
         $form = $this->createForm(ContactType::class, $contact);
 
@@ -33,10 +38,17 @@ class ContactController extends AbstractController
             // On peut récupérer les données du formulaire
             // dump($form->getData());
             // dump($contact);
+            $contact->setAskedAt(new \DateTimeImmutable());
+
             // Insérer en BDD... Persister un objet avec Doctrine
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($contact); // Mets de côté l'objet
             $manager->flush(); // INSERT
+
+            // On va rediriger vers la page de contact
+            $this->addFlash('success', 'Votre message a été envoyé.');
+
+            return $this->redirectToRoute('contact');
         }
 
         return $this->render('contact/index.html.twig', [
