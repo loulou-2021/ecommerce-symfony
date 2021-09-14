@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un produit - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fa fa-envelope"></i> Créer un produit.
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+
+                        <button class="btn btn-primary" formnovalidate>
+                            Ajouter
+                        </button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
