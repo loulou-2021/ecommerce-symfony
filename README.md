@@ -19,3 +19,9 @@ Attention de bien créer la BDD :
 ```bash
 php bin/console doctrine:database:create
 ```
+
+Et aussi, il faut synchroniser la BDD :
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
