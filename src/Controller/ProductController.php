@@ -13,6 +13,25 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProductController extends AbstractController
 {
     /**
+     * @Route("/product", name="product_list")
+     */
+    public function list()
+    {
+        // On récupère les produits en BDD
+        $repository = $this->getDoctrine()
+            ->getRepository(Product::class);
+
+        // Tous les produits (select * from product) dans un tableau
+        $products = $repository->findAll();
+        // Le produit (objet) avec l'id 1 (select * from product where id = 1)
+        // $product = $repository->find(1);
+
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+    /**
      * @Route("/product/create", name="product_create")
      */
     public function create(Request $request, SluggerInterface $slugger): Response
