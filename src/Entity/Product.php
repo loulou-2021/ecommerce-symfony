@@ -50,8 +50,8 @@ class Product
     /**
      * @ORM\Column(type="datetime_immutable")
      *
-     * @Assert\NotBlank
-     * @Assert\GreaterThanOrEqual("today")
+     * Assert\NotBlank
+     * Assert\GreaterThanOrEqual("today")
      */
     private $createdAt;
 
