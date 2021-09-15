@@ -30,6 +30,7 @@ Et aussi, il faut synchroniser la BDD :
 
 ```bash
 php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
 ```
 
 ## La partie produits
