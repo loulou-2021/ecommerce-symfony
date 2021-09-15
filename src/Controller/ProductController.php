@@ -26,7 +26,7 @@ class ProductController extends AbstractController
         // Le produit (objet) avec l'id 1 (select * from product where id = 1)
         // $product = $repository->find(1);
 
-        return $this->render('product/index.html.twig', [
+        return $this->render('product/list.html.twig', [
             'products' => $products,
         ]);
     }
