@@ -57,4 +57,22 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/product/{slug}", name="product_show")
+     *
+     * Symfony va interpréter l'argument Product avec le Param Converter, il va chercher le produit dont le slug
+     * correspond dans l'URL.
+     */
+    public function show(Product $product)
+    {
+        // Première solution sans la magie du ParamConverter avec le paramètre $slug
+        // $repository = $this->getDoctrine()->getRepository(Product::class);
+        // $product = $repository->findOneBySlug($slug);
+        // dump($product);
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+        ]);
+    }
 }
