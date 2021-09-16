@@ -62,3 +62,27 @@ Quand vous avez fini l'entité, on va créer une nouvelle page `/product/create`
 - Bien sûr, quand le formulaire est terminé, on persiste le produit dans la BDD.
 
 En BONUS, on pourra générer le slug avant de persister l'objet dans la BDD grâce au composant String de Symfony.
+
+## Le ManyToMany
+
+On va créer une entité Color (name). L'entité sera liée à Product par une relation ManyToMany.
+On n'oublie pas les migrations.
+On modifiera nos fixtures pour créer 5 couleurs. On devra associer plusieurs couleurs à chaque produit :
+
+```php
+$blue = new Color();
+$blue->setName('Bleu');
+$red = new Color();
+$red->setName('Rouge');
+
+$product->addColor($blue)->addColor($red);
+```
+
+Si on peut, on le fait en "dynamique".
+On affichera les couleurs liés au produit en BDD sur la fiche produit.
+
+```twig
+{% for color in product.colors %}
+    {{ color }}
+{% endfor %}
+```
