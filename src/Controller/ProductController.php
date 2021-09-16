@@ -51,6 +51,12 @@ class ProductController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($product);
             $manager->flush();
+
+            // Message de succès pour informer l'utilisateur
+            $this->addFlash('success', 'Le produit a bien été créé');
+
+            // Redirection vers le nouveau produit /product/le-slug-du-produit
+            return $this->redirectToRoute('product_show', ['slug' => $product->getSlug()]);
         }
 
         return $this->render('product/create.html.twig', [
