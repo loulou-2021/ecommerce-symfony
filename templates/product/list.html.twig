@@ -19,6 +19,9 @@
                         </a>
                     </h4>
                     <p class="card-text">{{ product.description | u.truncate(80, '...', false) }}</p>
+                    <div class="mb-4">
+                        Catégorie: {{ product.category.name }}
+                    </div>
                     <div class="row">
                         <div class="col">
                             <p class="btn btn-danger btn-block">{{ product.price | format_currency('EUR') }}</p>
