@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -13,6 +14,15 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
+        for ($i = 1; $i <= 10; $i++) {
+            $category = new Category();
+            $category->setName($faker->sentence(3));
+            $category->setSlug($faker->slug());
+            // Je mets de côté chaque objet $category dans une sorte de tableau que je pourrais utiliser plus tard
+            $this->addReference('category-'.$i, $category);
+            $manager->persist($category);
+        }
+
         for ($i = 0; $i < 360; $i++) {
             $product = new Product();
             $product->setName($faker->sentence(3));
@@ -23,6 +33,8 @@ class AppFixtures extends Fixture
             $product->setLiked($faker->boolean(25));
             $product->setImage(null);
             $product->setPromotion($faker->numberBetween(0, 70));
+            // Je récupère une référence dans le tableau qui contient d'autres objets
+            $product->setCategory($this->getReference('category-'.rand(1, 10)));
             $manager->persist($product);
         }
 

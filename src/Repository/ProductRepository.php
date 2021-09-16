@@ -41,6 +41,21 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult(); // fetchAll()
     }
 
+    /**
+     * Permet de récupérer les produits avec une jointure sur les catégories.
+     * Pour optimiser le nombre de requêtes...
+     *
+     * @return array
+     */
+    public function findAllWithJoin()
+    {
+        return $this->createQueryBuilder('p') // SELECT p.name FROM product p
+            ->addSelect('c') // // SELECT p.name, c.name FROM product p
+            ->join('p.category', 'c') // INNER JOIN category c ON c.id = p.category_id
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
