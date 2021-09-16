@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -71,6 +72,11 @@ class Product
      * @Assert\Range(min=1, max=100)
      */
     private $promotion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -176,9 +182,33 @@ class Product
     /**
      * Renvoie le prix avec la promotion.
      * On peut appeler la méthode dans Twig avec product.discountPrice
+     *
+     * @return int
      */
     public function getDiscountPrice()
     {
         return $this->price * (1 - $this->promotion / 100);
+    }
+
+    /**
+     * @ORM\PrePersist
+     *
+     * Avant de persister, Doctrine va exécuter la méthode suivante
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

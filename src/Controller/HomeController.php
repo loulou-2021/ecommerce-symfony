@@ -22,8 +22,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'randomProducts' => $repository->findAll(),
             'randomLikedProduct' => $repository->findOneByLiked(true), // where liked = 1
-            'lastProducts' => $repository->findAll(),
-            'bestProducts' => $repository->findAll(),
+            'lastProducts' => $repository->findBy([], ['createdAt' => 'desc'], 4),
+            'bestProducts' => $repository->findByCheapPriceAtLeast(200, 4),
         ]);
     }
 }

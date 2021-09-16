@@ -19,6 +19,43 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * Récupérer les produits les moins chers à partir de 200 euros.
+     *
+     * @param  int  $price
+     * @param  int  $limit
+     * @return array
+     */
+    public function findByCheapPriceAtLeast(int $price = 200, $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('p'); // SELECT p.id, p.name, p.description FROM product p
+
+        if ($limit) {
+            $qb->setMaxResults($limit); // LIMIT 4
+        }
+
+        return $qb->where('p.price > :price') // WHERE p.price > :price
+            ->setParameter('price', $price) // bindValue('price', $price)
+            ->orderBy('p.price', 'asc') // ORDER BY p.price ASC
+            ->getQuery() // execute()
+            ->getResult(); // fetchAll()
+    }
+
+    /**
+     * Permet de récupérer les produits avec une jointure sur les catégories.
+     * Pour optimiser le nombre de requêtes...
+     *
+     * @return array
+     */
+    public function findAllWithJoin()
+    {
+        return $this->createQueryBuilder('p') // SELECT p.name FROM product p
+            ->addSelect('c') // // SELECT p.name, c.name FROM product p
+            ->join('p.category', 'c') // INNER JOIN category c ON c.id = p.category_id
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
