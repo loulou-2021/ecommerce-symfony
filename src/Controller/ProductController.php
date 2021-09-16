@@ -46,7 +46,7 @@ class ProductController extends AbstractController
             // Si le name est MacBook Pro, le slug est macbook-pro
             $slug = $slugger->slug($product->getName())->lower();
             $product->setSlug($slug);
-            $product->setCreatedAt(new \DateTimeImmutable());
+            // $product->setCreatedAt(new \DateTimeImmutable());
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($product);
